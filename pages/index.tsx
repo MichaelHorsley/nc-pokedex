@@ -11,7 +11,7 @@ const Home: NextPage = ({data}) => {
 
 export async function getServerSideProps({ req, res }) {
 
-  const pokemonResponse = await fetch('https://pokeapi.co/api/v2/pokemon');
+  const pokemonResponse = await fetch('https://pokeapi.co/api/v2/pokemon/?limit=151');
 
   const data = await pokemonResponse.json();
 
@@ -20,7 +20,7 @@ export async function getServerSideProps({ req, res }) {
 
   res.setHeader(
     'Cache-Control',
-    'public, s-maxage=100, stale-while-revalidate=59'
+    'public, s-maxage=10000, stale-while-revalidate=59'
   )
 
   return {
