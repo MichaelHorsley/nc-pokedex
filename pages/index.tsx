@@ -3,52 +3,28 @@ import type { NextPage } from 'next'
 import Image from 'next/image';
 import { Fragment } from 'react';
 
-function typeColor(typeName){
-  switch(typeName){
-    case "normal":
-      return "#A8A77A";
-    case "fire":
-      return "#EE8130";
-    case "water":
-      return "#6390F0";
-    case "electric":
-      return "#F7D02C";
-    case "grass":
-      return "#7AC74C";
-    case "ice":
-      return "#96D9D6";
-    case "fighting":
-      return "#C22E28";
-    case "poison":
-      return "#A33EA1";
-    case "ground":
-      return "#E2BF65";
-    case "flying":
-      return "#A98FF3";
-    case "psychic":
-      return "#F95587";
-    case "bug":
-      return "#A6B91A";
-    case "rock":
-      return "#B6A136";
-    case "ghost":
-      return "#735797";
-    case "dragon":
-      return "#6F35FC";
-    case "dark":
-      return "#705746";
-    case "steel":
-      return "#B7B7CE";
-    case "fairy":
-      return "#D685AD";
-    default:
-      return "white";
-  }
-}
+const typeColor = new Map<string, string>([
+  ["normal", "#A8A77A"],
+  ["fire", "#EE8130"],
+  ["water", "#6390F0"],
+  ["electric", "#F7D02C"],
+  ["grass", "#7AC74C"],
+  ["ice", "#96D9D6"],
+  ["fighting", "#C22E28"],
+  ["poison", "#A33EA1"],
+  ["ground", "#E2BF65"],
+  ["flying", "#A98FF3"],
+  ["psychic", "#F95587"],
+  ["bug", "#A6B91A"],
+  ["rock", "#B6A136"],
+  ["ghost", "#735797"],
+  ["dragon", "#6F35FC"],
+  ["dark", "#705746"],
+  ["steel", "#B7B7CE"],
+  ["fairy", "#D685AD"]
+]);
 
 const Home: NextPage = ({graphQLData}) => {
-
-  console.log(graphQLData.data);
 
   return (
     <Box padding="100px" bg="gray.900" width="100vw" color="white">
@@ -66,8 +42,6 @@ const Home: NextPage = ({graphQLData}) => {
         <GridItem colSpan={1} rowSpan={1} bg="#2b4f01" borderRadius="5px" textAlign="center"><Center height="100%">S.Def</Center></GridItem>
         <GridItem colSpan={1} rowSpan={1} bg="#2b4f01" borderRadius="5px" textAlign="center"><Center height="100%">Spd</Center></GridItem>
 
-
-
         {graphQLData.data.pokemon_v2_pokemon.map((pokemon, i) => (
           <Fragment key={pokemon.name}>
             <GridItem colSpan={6} rowSpan={1} bg="gray.800" borderRadius="5px">
@@ -83,7 +57,7 @@ const Home: NextPage = ({graphQLData}) => {
               <Center height="100%">
                 {pokemon.pokemon_v2_pokemontypes.map((elementType) => (
                   <Box paddingRight="5px">
-                    <Box bg={typeColor(elementType.pokemon_v2_type.name)} 
+                    <Box bg={typeColor.get(elementType.pokemon_v2_type.name)} 
                       paddingLeft="3px" 
                       paddingRight="3px" 
                       borderRadius="4px"
