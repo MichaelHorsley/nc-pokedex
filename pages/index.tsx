@@ -3,6 +3,10 @@ import type { NextPage } from 'next'
 import Image from 'next/image';
 import { Fragment } from 'react';
 
+function capitalizeFirstLetter(string:string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 const typeColor = new Map<string, string>([
   ["normal", "#A8A77A"],
   ["fire", "#EE8130"],
@@ -51,7 +55,7 @@ const Home: NextPage = ({graphQLData}) => {
               <Image width="100px" height="100px" src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${i+1}.png`}/>
             </GridItem>
             <GridItem colSpan={6} rowSpan={1} bg="gray.800" borderRadius="5px" textAlign="center">
-              <Center height="100%">{pokemon.name}</Center>
+              <Center height="100%">{capitalizeFirstLetter(pokemon.name)}</Center>
             </GridItem>
             <GridItem colSpan={6} rowSpan={1} bg="gray.800" borderRadius="5px" textAlign="center">
               <Center height="100%">
@@ -62,7 +66,7 @@ const Home: NextPage = ({graphQLData}) => {
                       paddingRight="3px" 
                       borderRadius="4px"
                       color="black">
-                      {elementType.pokemon_v2_type.name}
+                      {capitalizeFirstLetter(elementType.pokemon_v2_type.name)}
                     </Box>
                   </Box>
                 ))}
